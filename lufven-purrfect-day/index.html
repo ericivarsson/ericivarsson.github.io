@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <title>Lufven: En purrfect dag</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐱</text></svg>"
+    />
+    <script type="module" crossorigin src="/lufven-purrfect-day/assets/index-DW2kbu7p.js"></script>
+    <link rel="stylesheet" crossorigin href="/lufven-purrfect-day/assets/index-Bsb9RpFf.css">
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="game-canvas"></canvas>
+
+      <!-- Splash + karaktärsval -->
+      <div id="title-screen" class="overlay select-overlay">
+        <div class="splash">
+          <div class="splash-hero">
+            <img src="./assets/title-art.png" alt="" class="splash-art" />
+            <div class="splash-titles">
+              <p class="splash-kicker">Svensk sommar · familjekaos · katt</p>
+              <h1>Lufven: En purrfect dag</h1>
+              <p class="splash-sub">Välj din roll — gos, äpplen, Tesla eller hopprep. Håll Lufven glad så länge du kan!</p>
+            </div>
+          </div>
+
+          <div id="character-grid" class="character-grid" role="listbox" aria-label="Välj karaktär"></div>
+
+          <div id="character-detail" class="character-detail">
+            <div class="detail-head">
+              <span id="detail-emoji" class="detail-emoji">🐱</span>
+              <div>
+                <h2 id="detail-name">Lufven</h2>
+                <p id="detail-tag" class="detail-tag">Klassiskt kaos</p>
+              </div>
+              <div id="detail-diff" class="detail-diff" title="Svårighet"></div>
+            </div>
+            <p id="detail-blurb" class="detail-blurb"></p>
+            <p id="detail-tips" class="detail-tips"></p>
+            <p id="detail-best" class="detail-best"></p>
+            <button id="start-btn" class="btn primary btn-xl">Starta som Lufven 🐾</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- HUD -->
+      <div id="hud" class="hidden">
+        <div class="hud-top">
+          <div class="bars-stack">
+            <div class="happiness-wrap" id="bar-happiness-wrap">
+              <div class="happiness-label" id="bar-happiness-label">Glädje 💖</div>
+              <div class="happiness-track">
+                <div id="happiness-fill" class="happiness-fill"></div>
+              </div>
+            </div>
+            <div class="happiness-wrap thirst-wrap" id="bar-thirst-wrap">
+              <div class="happiness-label" id="bar-thirst-label">Törst 💧</div>
+              <div class="happiness-track thirst-track">
+                <div id="thirst-fill" class="thirst-fill"></div>
+              </div>
+            </div>
+            <div class="happiness-wrap hunger-wrap hidden" id="bar-hunger-wrap">
+              <div class="happiness-label">Hunger 🍽️</div>
+              <div class="happiness-track hunger-track">
+                <div id="hunger-fill" class="hunger-fill"></div>
+              </div>
+            </div>
+            <div class="happiness-wrap special-wrap hidden" id="bar-special-wrap">
+              <div class="happiness-label" id="bar-special-label">Fis-kraft 💨</div>
+              <div class="happiness-track special-track">
+                <div id="special-fill" class="special-fill"></div>
+              </div>
+            </div>
+          </div>
+          <div class="hud-stats">
+            <div id="role-label" class="stat role-stat">🐱 Lufven</div>
+            <div id="time-label" class="stat">⏱️ 0:00</div>
+            <div id="score-label" class="stat">⭐ 0</div>
+            <div id="wave-label" class="stat">Våg 1</div>
+            <div id="apple-label" class="stat">🍎 3</div>
+            <div id="held-label" class="stat hidden">🤲 —</div>
+          </div>
+        </div>
+
+        <div id="mission-box" class="mission-box">
+          <div class="mission-title">Uppdrag</div>
+          <div id="mission-text">Gosa, drick, kasta äpplen!</div>
+        </div>
+
+        <div id="prompt" class="prompt hidden"></div>
+        <div id="toast" class="toast hidden"></div>
+        <div id="speech" class="speech hidden"></div>
+
+        <div class="hud-bottom">
+          <div id="location-label" class="location">🏡 Gården</div>
+          <div class="mini-help" id="mini-help">E · F · Shift</div>
+        </div>
+      </div>
+
+      <!-- Touch -->
+      <div id="touch-controls" aria-hidden="true">
+        <div id="stick-base" class="stick-base">
+          <div id="stick-knob" class="stick-knob"></div>
+          <div class="stick-label">Gå</div>
+        </div>
+        <div class="touch-buttons">
+          <button type="button" id="btn-zoomies" class="touch-btn zoomies" aria-label="Zoomies/Turbo">
+            💨
+            <span id="btn-zoomies-label">Zoomies</span>
+          </button>
+          <button type="button" id="btn-special" class="touch-btn special hidden" aria-label="Special">
+            💨
+            <span>Fis</span>
+          </button>
+          <button type="button" id="btn-throw" class="touch-btn throw" aria-label="Kasta äpple">
+            🍎
+            <span>Kasta</span>
+          </button>
+          <button type="button" id="btn-jump" class="touch-btn jump" aria-label="Hoppa">
+            🐾
+            <span>Hoppa</span>
+          </button>
+          <button type="button" id="btn-interact" class="touch-btn interact" aria-label="Interagera">
+            🤗
+            <span>Gör</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Slut -->
+      <div id="end-screen" class="overlay hidden">
+        <div class="title-card end-card">
+          <h1 id="end-title">Vilken dag!</h1>
+          <p id="end-message"></p>
+          <div id="end-stats" class="end-stats"></div>
+          <div class="end-actions">
+            <button id="replay-btn" class="btn primary">Samma roll igen 🐾</button>
+            <button id="reselect-btn" class="btn secondary">Byt karaktär</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,13 @@
+.DS_Store
+.idea
+.vscode
+*.log
+*.local
+.vite
+node_modules
+dist
+
+# Lokala referensfoton (spelet behöver dem inte för att byggas)
+Inspiration/
+**/Inspiration/
+**/public/assets/refs/
