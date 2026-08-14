@@ -36,9 +36,13 @@ jobs:
             mkdir -p site/lufven-purrfect-day
             cp -a lufven-purrfect-day/. site/lufven-purrfect-day/
           fi
+          if [ -d super-lufven ]; then
+            mkdir -p site/super-lufven
+            cp -a super-lufven/. site/super-lufven/
+          fi
           touch site/.nojekyll
           find site -name .DS_Store -delete
-          rm -rf site/.git site/.github site/lufven-purrfect-day/.git
+          rm -rf site/.git site/.github site/lufven-purrfect-day/.git site/super-lufven/.git
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
