@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="sv">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <title>Super Lufven — Systrarna Ivarsson</title>
+    <link rel="icon" href="/super-lufven/assets/mark-circle-hc99w73B.jpg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:ital,wght@0,600;0,700;0,800;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <script type="module" crossorigin src="/super-lufven/assets/index-Dnus0qc-.js"></script>
+    <link rel="stylesheet" crossorigin href="/super-lufven/assets/index-B1NpXPG0.css">
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="game"></canvas>
+
+      <div id="hud" class="hidden" aria-hidden="true">
+        <div class="hud-left">
+          <div class="chip score-chip">
+            <span class="label">Poäng</span>
+            <span id="score-count">0</span>
+          </div>
+          <div class="chip kibble-chip">
+            <img src="./assets/sprites/kibble.png" alt="" />
+            <span id="kibble-count">0</span>
+          </div>
+          <div class="chip lives-chip" id="lives"></div>
+        </div>
+        <div class="hud-center">
+          <div id="zone-toast"></div>
+          <div id="super-bar" class="hidden">
+            <span>Zoomies!</span>
+            <div class="bar"><i id="super-fill"></i></div>
+          </div>
+        </div>
+        <div class="hud-right">
+          <div class="chip time-chip">
+            <span id="time-count">0:00</span>
+            <span class="par" id="par-count">par 1:00</span>
+          </div>
+          <button id="btn-mute" type="button" aria-label="Ljud">♪</button>
+        </div>
+      </div>
+
+      <section id="title" class="screen">
+        <img class="title-bg" src="./assets/bg/title-art.jpg" alt="" />
+        <div class="title-veil"></div>
+        <header class="studio">
+          <img src="/super-lufven/assets/mark-circle-hc99w73B.jpg" alt="" />
+          <div>
+            <p class="kicker">Spelstudio</p>
+            <p class="studio-name">Systrarna Ivarsson</p>
+          </div>
+        </header>
+        <div class="title-card">
+          <p class="eyebrow">Ett plattformsäventyr</p>
+          <h1>Super Lufven</h1>
+          <p class="lead">
+            Fem banor. Samla <em>torrfoder</em> för poäng — men skynda,
+            tiden ger bonus. Ät <em>lyxmat</em>, fånga <em>garn</em> och
+            slå sönder <em>kartonger</em> när du är stor.
+          </p>
+          <p class="best-line">Bästa total: <strong id="title-best">0</strong></p>
+          <button id="btn-start" type="button">Börja leka</button>
+          <p class="hint">
+            <span class="desk">A D / pilar · blanksteg hoppar</span>
+            <span class="pad">Peka vänster/höger · hoppa med knappen</span>
+          </p>
+        </div>
+      </section>
+
+      <section id="end" class="screen hidden">
+        <div class="end-card">
+          <img class="end-mark" src="/super-lufven/assets/mark-circle-hc99w73B.jpg" alt="" />
+          <p class="end-kicker" id="end-kicker">Bana klar</p>
+          <h2 id="end-title">Lufven nådde slottet!</h2>
+          <p id="end-text"></p>
+          <ul class="breakdown" id="end-breakdown"></ul>
+          <div class="end-stats">
+            <div>
+              <strong id="end-total">0</strong>
+              <span>poäng</span>
+            </div>
+            <div>
+              <strong id="end-best">0</strong>
+              <span>rekord</span>
+            </div>
+          </div>
+          <div class="end-actions">
+            <button id="btn-next" type="button">Nästa bana</button>
+            <button id="btn-again" type="button">Spela igen</button>
+          </div>
+        </div>
+      </section>
+
+      <div id="touch" aria-hidden="true">
+        <div class="pad" id="pad-left">
+          <button data-dir="-1" type="button">◀</button>
+          <button data-dir="1" type="button">▶</button>
+        </div>
+        <button id="pad-jump" type="button">Hoppa</button>
+      </div>
+    </div>
+  </body>
+</html>
